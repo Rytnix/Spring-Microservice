@@ -4,19 +4,20 @@ import com.codeinsight.orderservice.common.Payment;
 import com.codeinsight.orderservice.common.TransactionRequest;
 import com.codeinsight.orderservice.common.TransactionResponse;
 import com.codeinsight.orderservice.entity.Order;
-import com.codeinsight.orderservice.dao.Orderdao;
+import com.codeinsight.orderservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.sql.rowset.spi.TransactionalWriter;
+import java.util.List;
 
 @Service
 public class OrderService {
 
     private  String message ="";
     @Autowired
-    private Orderdao orderepo;
+    private OrderRepository orderepo;
+
 
     @Autowired
     private RestTemplate template;
@@ -33,6 +34,10 @@ public class OrderService {
         else
             message = "There is a failure in payment api, Order added in your cart";
         orderepo.save(order);
+        List<Order> nameorder = orderepo.findByName("mobile");
+
+            for (Order i : nameorder)
+                System.out.println(i.getName() + " - " + i.getId());
         return new TransactionResponse(order, paymentresponse.getTransactionId(), paymentresponse.getAmount(),message);
     }
 }
