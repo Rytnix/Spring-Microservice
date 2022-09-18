@@ -1,5 +1,7 @@
 package com.codeinsight.orderservice.controller;
 
+import com.codeinsight.orderservice.common.TransactionRequest;
+import com.codeinsight.orderservice.common.TransactionResponse;
 import com.codeinsight.orderservice.entity.Order;
 import com.codeinsight.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,8 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/bookorder")
-    public Order bookOrder(@RequestBody Order order){
-        return orderService.saveOrder(order);
+    public TransactionResponse bookOrder(@RequestBody TransactionRequest request){
+        return orderService.saveOrder(request);
         //rest call to payment service and pass the order id;
     }
 }
