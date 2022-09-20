@@ -40,4 +40,8 @@ public class OrderService {
                 System.out.println(i.getName() + " - " + i.getId());
         return new TransactionResponse(order, paymentresponse.getTransactionId(), paymentresponse.getAmount(),message);
     }
+
+    public List<Order> showorder() {
+       return (List<Order>)orderepo.findAll();
+    }
 }

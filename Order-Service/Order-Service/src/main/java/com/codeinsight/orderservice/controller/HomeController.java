@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@RequestMapping("/api")
 public class HomeController {
 
 
