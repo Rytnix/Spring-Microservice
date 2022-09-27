@@ -28,7 +28,7 @@ public class OrderService {
         payment.setOrderId(order.getId());
         payment.setAmount(order.getPrice());
         //Rest api call over here.
-        Payment paymentresponse = template.postForObject("http://localhost:8081/payment/savepayment",payment,Payment.class);
+        Payment paymentresponse = template.postForObject("http://172.105.35.9:8081/payment/savepayment",payment,Payment.class);
         if(paymentresponse.getPaymentStatus().equals("success"))
             message = "Payment processing successfull and Order placed!!!";
         else
@@ -39,5 +39,9 @@ public class OrderService {
             for (Order i : nameorder)
                 System.out.println(i.getName() + " - " + i.getId());
         return new TransactionResponse(order, paymentresponse.getTransactionId(), paymentresponse.getAmount(),message);
+    }
+
+    public List<Order> findorder(String name){
+        return orderepo.findByName(name);
     }
 }
